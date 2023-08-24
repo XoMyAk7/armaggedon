@@ -1,5 +1,5 @@
 .basket {
-  height: 80vh;
+  max-height: 81vh;
   padding: 16px;
   position: fixed;
   left: 70%;
@@ -9,31 +9,67 @@
   font-style: normal;
   transform: translate(0px, 0px);
   transition: all 800ms ease 0s;
-  &_header {
-    display: flex;
-    margin-bottom: 11px;
-  }
+  z-index: 1;
+
   &_up {
     transform: translate(0px, -3vh);
   }
+
+  .header {
+    display: flex;
+    min-width: 274px;
+    justify-content: space-between;
+    margin-bottom: 11px;
+    z-index: 1;
+    user-select: auto;
+
+    .title {
+      display: inline-block;
+      transition: all 400ms ease-in-out;
+      transform: translate(0px, 0px);
+
+      &_move {
+        transform: translate(-130px, 0px);
+        opacity: 0;
+        user-select: none;
+      }
+    }
+
+    div {
+      z-index: 1;
+
+      h2 {
+        font-size: 18px;
+        font-weight: 700;
+        z-index: 1;
+      }
+
+      p {
+        margin-top: 2px;
+        font-size: 16px;
+        font-weight: 400;
+        z-index: 1;
+      }
+    }
+  }
+
   hr {
     width: 100%;
     height: 1px;
     background-color: #000;
     margin-bottom: 12px;
   }
-  h2 {
-    font-size: 18px;
-    font-weight: 700;
+
+  .button_zero {
+    pointer-events: none;
   }
-  p {
-    margin-top: 2px;
-    font-size: 16px;
-    font-weight: 400;
-  }
+  .button_new_order {
+      transform: translate(-25%, 0px);
+    }
+
   button {
+    z-index: 1;
     height: 44px;
-    margin-left: 55px;
     border-radius: 40px;
     padding: 8px 16px;
     transition: all 300ms ease-in-out;
@@ -49,9 +85,73 @@
     background-color: #913f04;
     transition: background-color 50ms ease-in-out;
   }
+
+  .send {
+    position: absolute;
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 36px;
+    display: inline-block;
+    pointer-events: none;
+    user-select: none;
+    z-index: 0;
+
+    transition: all 400ms ease-in-out;
+    transform: translate(0px, -140%);
+    opacity: 0;
+
+    &_active {
+      transform: translate(0px, 0px);
+      opacity: 1;
+      pointer-events: fill;
+    }
+  }
+
+  .asteroids {
+    padding-top: 5px;
+    padding-right: 15px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-height: 480px;
+    transition: all 400ms ease-in-out;
+
+    div:first-child {
+      div:first-child {
+        margin-top: 0;
+      }
+    }
+
+    &_move {
+      margin-top: 57px;
+    }
+  }
 }
-.scroll {
-  padding-right: 15px;
-  overflow-y: auto;
-  max-height: 500px;
+
+.icon_bs_trash {
+  position: relative;
+  color: red;
+  width: 20px;
+  height: 20px;
+  float: right;
+  bottom: 10.5vh;
+  cursor: url("./assets/mouse.svg"), pointer;
+  transition: all 500ms ease-in-out;
+  transform: translate(0px, 0px);
+  user-select: none;
+  opacity: 1;
+
+  &_not_active {
+    transform: translate(30px, 0px);
+    opacity: 0;
+  }
+}
+.icon_bs_trash:hover {
+  transform: scale(1.2);
+}
+.icon_bs_trash:active {
+  transform: scale(0.8);
+}
+.icon_bs_trash_danger {
+  bottom: 13.5vh;
 }

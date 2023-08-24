@@ -7,8 +7,8 @@ import { IconContext } from "react-icons";
 import { useActions } from "../../hooks/useActions";
 
 const Basket: FC = () => {
-  const { count, asteroids } = useBacket();
-  const { setBasket } = useActions();
+  const { count, asteroids, isSend } = useBacket();
+  const { setBasket, resetBasket, setIsSend } = useActions();
   const [e, setE] = useState(0);
   const scrollHandler = (e: any) => {
     setE(e.target.documentElement.scrollTop);
@@ -22,23 +22,43 @@ const Basket: FC = () => {
 
   return (
     <div className={styles.basket + " " + (e ? styles.basket_up : "")}>
-      <div className={styles.basket_header}>
-        <div>
+      <div className={styles.header}>
+        <div className={styles.title + (isSend ? " " + styles.title_move : "")}>
           <h2>Корзина</h2>
           <p>{count} астероида</p>
         </div>
-        <button>Отправить</button>
+        {isSend ? (
+          <button
+            className={isSend ? styles.button_new_order : ""}
+            onClick={() => {
+              setIsSend();
+              resetBasket();
+            }}
+          >
+            Сделать новый заказ
+          </button>
+        ) : (
+          <button className={count > 0 ? "" : styles.button_zero} onClick={() => setIsSend()}>Отправить</button>
+        )}
       </div>
       <hr />
-      <div className={styles.scroll}>
+      <span className={styles.send + (isSend ? " " + styles.send_active : "")}>
+        Заказ отправлен!
+      </span>
+      <div
+        className={styles.asteroids + (isSend ? " " + styles.asteroids_move : "")}
+      >
         {asteroids.map(asteroid => (
           <div key={asteroid.id}>
             <AsteroidsItem asteroid={asteroid} isBasket={true} />
             <IconContext.Provider
               value={{
-                className: asteroid.is_potentially_hazardous_asteroid
-                  ? "icon-bs-trash icon-bs-trash-danger"
-                  : "icon-bs-trash",
+                className:
+                  styles.icon_bs_trash +
+                  (asteroid.is_potentially_hazardous_asteroid
+                    ? " " + styles.icon_bs_trash_danger
+                    : "") +
+                  (isSend ? " " + styles.icon_bs_trash_not_active : ""),
               }}
             >
               <div onClick={() => setBasket(asteroid)}>

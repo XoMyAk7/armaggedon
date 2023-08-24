@@ -16,7 +16,7 @@ interface IAsteroidsItem {
 }
 
 const AsteroidsItem: FC<IAsteroidsItem> = ({ asteroid, isBasket }) => {
-  const { asteroids } = useBacket();
+  const { asteroids, isSend } = useBacket();
   const { setBasket } = useActions();
   const { inKm } = useDistance();
   const [inBasket, setInBasket] = useState(false);
@@ -89,7 +89,9 @@ const AsteroidsItem: FC<IAsteroidsItem> = ({ asteroid, isBasket }) => {
         ) : (
           <button
             className={
-              styles.mini_button + " " + (inBasket ? styles.inBasket : "")
+              styles.mini_button +
+              (inBasket ? " " + styles.inBasket : "") +
+              (isSend ? " " + styles.mini_button_send : "")
             }
             onClick={() => {
               setInBasket(!inBasket);

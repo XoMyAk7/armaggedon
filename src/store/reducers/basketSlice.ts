@@ -5,6 +5,7 @@ import { IAsteroid } from "../../types/asteroids.types";
 const initialState: IBasket = {
   count: 0,
   asteroids: [],
+  isSend: false,
 };
 
 const basketSlice = createSlice({
@@ -24,6 +25,13 @@ const basketSlice = createSlice({
         state.asteroids.splice(index, 1);
       }
     },
+    resetBasket: (state) => {
+      state.count = 0;
+      state.asteroids = [];
+    },
+    setIsSend: (state) => {
+      state.isSend = !state.isSend;
+    }
   },
 });
 
