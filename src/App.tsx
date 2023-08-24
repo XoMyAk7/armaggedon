@@ -15,8 +15,6 @@ function App() {
   const offSubscribe = () =>
     window.removeEventListener("resize", handleSubscribe);
 
-  
-
   useEffect(() => {
     onSubscribe();
 

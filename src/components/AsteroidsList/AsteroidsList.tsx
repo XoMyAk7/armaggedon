@@ -3,11 +3,15 @@ import styles from "./asteroidsList.module.scss";
 import AsteroidsItem from "../AsteroidsItem/AsteroidsItem";
 import { IAsteroid } from "../../types/asteroids.types";
 import { getToDay, getNextDay } from "../../functions/date";
+import { useDistance } from "../../hooks/useDistance";
+import { useActions } from "../../hooks/useActions";
 
 const AsteroidsList: FC = () => {
+  const {inKm} = useDistance()
+  const {setDistance} = useActions()
   const [day, setDay] = useState(getToDay());
-  const [inKm, setInKm] = useState(true);
   const [asteroids, setAsteroids] = useState<IAsteroid[]>([]);
+  const [fetching, setFetching] = useState(true);
   const [getAsteroids, setGetAsteroids] = useState(
     "https://api.nasa.gov/neo/rest/v1/feed?start_date=" +
       day +
@@ -16,17 +20,34 @@ const AsteroidsList: FC = () => {
       "&api_key=hI9X0pnC7yklZdwpRSE7P6zV10zyJsTbIE6WscTl"
   );
   useEffect(() => {
-    try {
+    if (fetching) {
       fetch(getAsteroids)
         .then(res => res.json())
         .then(res => {
+          setAsteroids([...asteroids, ...res.near_earth_objects[day]]);
           setDay(getNextDay(day));
           setGetAsteroids(res.links.next);
-          setAsteroids([...asteroids, ...res.near_earth_objects[day]]);
-        });
-    } catch {}
+        })
+        .finally(() => setFetching(false));
+    }
+  }, [fetching]);
+
+  useEffect(() => {
+    document.addEventListener("scroll", scrollHandler);
+    return function () {
+      document.removeEventListener("scroll", scrollHandler);
+    };
   }, []);
-  console.log(asteroids);
+
+  const scrollHandler = (e: any) => {
+    if (
+      e.target.documentElement.scrollHeight -
+        (e.target.documentElement.scrollTop + window.innerHeight) <
+      400
+    ) {
+      setFetching(true);
+    }
+  };
 
   return (
     <div className={styles.list}>
@@ -35,21 +56,21 @@ const AsteroidsList: FC = () => {
         <div className={styles.distance}>
           <span
             className={inKm ? styles.active : styles.not_active}
-            onClick={() => setInKm(true)}
+            onClick={() => setDistance(true)}
           >
             в километрах
           </span>
           <pre> | </pre>
           <span
             className={!inKm ? styles.active : styles.not_active}
-            onClick={() => setInKm(false)}
+            onClick={() => setDistance(false)}
           >
             в лунных орбитах
           </span>
         </div>
       </div>
       {asteroids.map(asteroid => (
-        <AsteroidsItem key={asteroid.name} asteroid={asteroid} inKm={inKm} /> // key={asteroid.estimated_diameter.name}
+        <AsteroidsItem key={asteroid.id} asteroid={asteroid} isBasket={false} />
       ))}
     </div>
   );

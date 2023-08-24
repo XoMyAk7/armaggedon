@@ -5,18 +5,26 @@ import { getDay } from "../../functions/date";
 import { getName } from "../../functions/asteroid";
 import { IoMdWarning } from "react-icons/io";
 import { IconContext } from "react-icons";
+import { useActions } from "../../hooks/useActions";
+import { formatNumber } from "../../functions/formatNumber";
+import { useBacket } from "../../hooks/useBasket";
+import { useDistance } from "../../hooks/useDistance";
 
 interface IAsteroidsItem {
   asteroid: IAsteroid;
-  inKm: boolean;
+  isBasket: boolean;
 }
 
-const AsteroidsItem: FC<IAsteroidsItem> = ({ asteroid, inKm }) => {
+const AsteroidsItem: FC<IAsteroidsItem> = ({ asteroid, isBasket }) => {
+  const { asteroids } = useBacket();
+  const { setBasket } = useActions();
+  const { inKm } = useDistance();
   const [inBasket, setInBasket] = useState(false);
   const [km, setKm] = useState("");
   const [lunar, setLunar] = useState("");
   const asteroidDiameter = asteroid.estimated_diameter;
   const isKm = Number(asteroid.estimated_diameter.kilometers) >= 1;
+
   const diameter = isKm
     ? Math.round(
         (asteroidDiameter.kilometers.estimated_diameter_max +
@@ -30,24 +38,19 @@ const AsteroidsItem: FC<IAsteroidsItem> = ({ asteroid, inKm }) => {
       );
 
   useEffect(() => {
+    const index = asteroids.findIndex(a => a.id === asteroid.id);
+    if (index !== -1) {
+      setInBasket(true);
+    } else {
+      setInBasket(false);
+    }
+  }, [asteroids]);
+
+  useEffect(() => {
     setKm(
-      new Intl.NumberFormat("ru-RU")
-        .format(
-          Math.round(
-            Number(asteroid.close_approach_data[0].miss_distance.kilometers)
-          )
-        )
-        .toString()
+      formatNumber(asteroid.close_approach_data[0].miss_distance.kilometers)
     );
-    setLunar(
-      new Intl.NumberFormat("ru-RU")
-        .format(
-          Math.round(
-            Number(asteroid.close_approach_data[0].miss_distance.lunar)
-          )
-        )
-        .toString()
-    );
+    setLunar(formatNumber(asteroid.close_approach_data[0].miss_distance.lunar));
   }, []);
 
   return (
@@ -69,8 +72,8 @@ const AsteroidsItem: FC<IAsteroidsItem> = ({ asteroid, inKm }) => {
                 ? ""
                 : styles.asteroid_mini
               : diameter > 100
-                ? ""
-                : styles.asteroid_mini
+              ? ""
+              : styles.asteroid_mini
           }
         />
         <div className={styles.asteroid_descr}>
@@ -81,14 +84,22 @@ const AsteroidsItem: FC<IAsteroidsItem> = ({ asteroid, inKm }) => {
         </div>
       </div>
       <div className={styles.asteroid_footer}>
-        <button
-          className={
-            inBasket ? styles.button + " " + styles.inBasket : styles.button
-          }
-          onClick={() => setInBasket(!inBasket)}
-        >
-          {inBasket ? "В КОРЗИНЕ" : "ЗАКАЗАТЬ"}
-        </button>
+        {isBasket ? (
+          ""
+        ) : (
+          <button
+            className={
+              styles.mini_button + " " + (inBasket ? styles.inBasket : "")
+            }
+            onClick={() => {
+              setInBasket(!inBasket);
+              setBasket(asteroid);
+            }}
+          >
+            {inBasket ? "В КОРЗИНЕ" : "ЗАКАЗАТЬ"}
+          </button>
+        )}
+
         {asteroid.is_potentially_hazardous_asteroid ? (
           <span className={styles.danger}>
             {

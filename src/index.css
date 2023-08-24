@@ -21,9 +21,47 @@
   padding: 0;
   box-sizing: border-box;
   border: none;
+  font-family: Helvetica, Arial, sans-serif;
 }
 
 body {
   background: black;
   color: #fff;
+}
+
+button {
+  cursor: url("./assets/mouse.svg"), pointer;
+  color: #fff;
+  background-color: #de5e02;
+  font-weight: 700;
+  transition: all 300ms ease-in-out;
+  padding: 2px 11px;
+  border-radius: 16px;
+}
+button:hover {
+  color: #fff;
+  background-color: #de5e02;
+}
+button:active {
+  background-color: #763202;
+  transition: background-color 50ms ease-in-out;
+}
+.icon-bs-trash {
+  position: relative;
+  color: red;
+  width: 20px;
+  height: 20px;
+  float: right;
+  bottom: 13.5vh;
+  cursor: url("./assets/mouse.svg"), pointer;
+  transition: all 300ms ease-in-out;
+}
+.icon-bs-trash:hover {
+  transform: scale(1.2);
+}
+.icon-bs-trash:active {
+  transform: scale(0.8);
+}
+.icon-bs-trash-danger {
+  bottom: 16.6vh;
 }

@@ -1,8 +1,16 @@
 .main {
+  position: relative;
   margin-top: 15px;
   display: flex;
+  z-index: 1;
 }
 
 .earth_img {
   position: fixed;
+  transform: translate(0px, 0px);
+  transition: all 800ms ease 0s;
+}
+
+.earth_up {
+  transform: translate(0px, -5vh);
 }

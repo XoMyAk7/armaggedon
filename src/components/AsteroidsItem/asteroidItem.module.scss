@@ -1,5 +1,4 @@
 .data {
-  font-family: Helvetica;
   font-size: 24px;
   font-style: normal;
   font-weight: 700;
@@ -12,7 +11,6 @@
     display: flex;
   }
   &_name {
-    font-family: Helvetica;
     font-size: 16px;
     font-style: normal;
     font-weight: 700;
@@ -28,7 +26,6 @@
     flex-direction: column;
   }
   &_diameter {
-    font-family: Helvetica;
     font-size: 12px;
     font-style: normal;
     font-weight: 400;
@@ -41,7 +38,6 @@
 }
 
 .distance {
-  font-family: Helvetica;
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
@@ -54,27 +50,13 @@
     margin-top: 4px;
   }
 }
-.button {
-  border-radius: 16px;
+.mini_button {
   background-color: rgba(248, 102, 0, 0.15);
-  padding: 2px 11px;
   color: #f86600;
-  font-family: Helvetica;
   font-size: 11px;
   font-style: normal;
-  font-weight: 700;
-  line-height: 20px; /* 181.818% */
+  line-height: 20px;
   letter-spacing: 1px;
-  cursor: url("../../assets/mouse.svg"), pointer;
-  transition: all 300ms ease-in-out;
-}
-.button:hover {
-  color: #fff;
-  background-color: #de5e02;
-}
-.button:active {
-  background-color: #763202;
-  transition: background-color 50ms ease-in-out;
 }
 .danger {
   display: flex;
@@ -82,7 +64,6 @@
   margin-top: auto;
   margin-bottom: auto;
   pre {
-    font-family: Helvetica;
     font-size: 14px;
     font-style: normal;
     font-weight: 400;
