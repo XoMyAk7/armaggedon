@@ -5,6 +5,7 @@ import { IAsteroid } from "../../types/asteroids.types";
 import { getToDay, getNextDay } from "../../functions/date";
 import { useDistance } from "../../hooks/useDistance";
 import { useActions } from "../../hooks/useActions";
+import React from "react";
 
 const AsteroidsList: FC = () => {
   const {inKm} = useDistance()
@@ -49,6 +50,12 @@ const AsteroidsList: FC = () => {
     }
   };
 
+  const Asteroids = React.memo(() => {
+    return (asteroids.map(asteroid => (
+      <AsteroidsItem key={asteroid.id} asteroid={asteroid} isBasket={false} />
+    )))
+  })
+
   return (
     <div className={styles.list}>
       <div className={styles.header}>
@@ -69,9 +76,7 @@ const AsteroidsList: FC = () => {
           </span>
         </div>
       </div>
-      {asteroids.map(asteroid => (
-        <AsteroidsItem key={asteroid.id} asteroid={asteroid} isBasket={false} />
-      ))}
+      <Asteroids />
     </div>
   );
 };

@@ -11,6 +11,7 @@
     display: flex;
   }
   &_name {
+    cursor: url("./assets/mouse.svg"), pointer;
     font-size: 16px;
     font-style: normal;
     font-weight: 700;

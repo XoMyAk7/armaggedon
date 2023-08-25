@@ -1,14 +1,15 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useMemo, useState } from "react";
 import styles from "./asteroidItem.module.scss";
 import { IAsteroid } from "../../types/asteroids.types";
 import { getDay } from "../../functions/date";
-import { getName } from "../../functions/asteroid";
+import { getName } from "../../functions/getName";
 import { IoMdWarning } from "react-icons/io";
 import { IconContext } from "react-icons";
 import { useActions } from "../../hooks/useActions";
 import { formatNumber } from "../../functions/formatNumber";
 import { useBacket } from "../../hooks/useBasket";
 import { useDistance } from "../../hooks/useDistance";
+import { endingCountLunar } from "../../functions/endingCountLunar";
 
 interface IAsteroidsItem {
   asteroid: IAsteroid;
@@ -17,27 +18,43 @@ interface IAsteroidsItem {
 
 const AsteroidsItem: FC<IAsteroidsItem> = ({ asteroid, isBasket }) => {
   const { asteroids, isSend } = useBacket();
-  const { setBasket } = useActions();
+  const { setBasket, setIsInfo, setIdAsteroidInfo } = useActions();
   const { inKm } = useDistance();
   const [inBasket, setInBasket] = useState(false);
-  const [km, setKm] = useState("");
-  const [lunar, setLunar] = useState("");
-  const asteroidDiameter = asteroid.estimated_diameter;
-  const isKm = Number(asteroid.estimated_diameter.kilometers) >= 1;
+  const asteroidDiameter = useMemo(() => asteroid.estimated_diameter, []);
+  const km = useMemo(
+    () =>
+      formatNumber(asteroid.close_approach_data[0].miss_distance.kilometers),
+    []
+  );
+  const lunar = useMemo(
+    () => formatNumber(asteroid.close_approach_data[0].miss_distance.lunar),
+    []
+  );
+  const isKm = useMemo(
+    () =>
+      asteroidDiameter.kilometers.estimated_diameter_max +
+        asteroidDiameter.kilometers.estimated_diameter_min / 2 >=
+      1,
+    []
+  );
+  const diameter = useMemo(
+    () =>
+      isKm
+        ? Math.round(
+            (asteroidDiameter.kilometers.estimated_diameter_max +
+              asteroidDiameter.kilometers.estimated_diameter_min) /
+              2
+          )
+        : Math.round(
+            (asteroidDiameter.meters.estimated_diameter_max +
+              asteroidDiameter.meters.estimated_diameter_min) /
+              2
+          ),
+    []
+  );
 
-  const diameter = isKm
-    ? Math.round(
-        (asteroidDiameter.kilometers.estimated_diameter_max +
-          asteroidDiameter.kilometers.estimated_diameter_min) /
-          2
-      )
-    : Math.round(
-        (asteroidDiameter.meters.estimated_diameter_max +
-          asteroidDiameter.meters.estimated_diameter_min) /
-          2
-      );
-
-  useEffect(() => {
+  useMemo(() => {
     const index = asteroids.findIndex(a => a.id === asteroid.id);
     if (index !== -1) {
       setInBasket(true);
@@ -46,13 +63,6 @@ const AsteroidsItem: FC<IAsteroidsItem> = ({ asteroid, isBasket }) => {
     }
   }, [asteroids]);
 
-  useEffect(() => {
-    setKm(
-      formatNumber(asteroid.close_approach_data[0].miss_distance.kilometers)
-    );
-    setLunar(formatNumber(asteroid.close_approach_data[0].miss_distance.lunar));
-  }, []);
-
   return (
     <div className={styles.asteroid}>
       <h3 className={styles.data}>
@@ -60,7 +70,9 @@ const AsteroidsItem: FC<IAsteroidsItem> = ({ asteroid, isBasket }) => {
       </h3>
       <div className={styles.asteroid_info}>
         <div className={styles.distance}>
-          <span>{inKm ? km + " км" : lunar + " лунных орбит"}</span>
+          <span>
+            {inKm ? km + " км" : lunar + " " + endingCountLunar(Number(lunar))}
+          </span>
           <img src="./src/assets/arrow.svg" alt="" />
         </div>
         <img
@@ -77,7 +89,15 @@ const AsteroidsItem: FC<IAsteroidsItem> = ({ asteroid, isBasket }) => {
           }
         />
         <div className={styles.asteroid_descr}>
-          <span className={styles.asteroid_name}>{getName(asteroid.name)}</span>
+          <span
+            className={styles.asteroid_name}
+            onClick={() => {
+              setIsInfo(true);
+              setIdAsteroidInfo(asteroid.id);
+            }}
+          >
+            {getName(asteroid.name)}
+          </span>
           <span className={styles.asteroid_diameter}>
             Ø {diameter} {isKm ? " км" : " м"}{" "}
           </span>

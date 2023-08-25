@@ -2,6 +2,7 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { reducer as sizeReducer } from "./reducers/sizeSlice";
 import { reducer as basketReducer } from "./reducers/basketSlice";
 import { reducer as distanceReducer } from "./reducers/distanceSlice";
+import { reducer as asteroidReducer } from "./reducers/asteroidSlice";
 import {
   persistStore,
   persistReducer,
@@ -23,6 +24,7 @@ const reducers = combineReducers({
   size: sizeReducer,
   basket: basketReducer,
   distance: distanceReducer,
+  asteroid: asteroidReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);

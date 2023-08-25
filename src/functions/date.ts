@@ -33,6 +33,6 @@ export function getDay(day: string) {
   ];
   const date = day.split("-");
   const convertDate =
-    Number(date[2]).toString() + ' ' + month[Number(date[1])] + ' ' + date[0];
+    Number(date[2]).toString() + ' ' + month[Number(date[1]) - 1] + ' ' + date[0];
   return convertDate;
 }
