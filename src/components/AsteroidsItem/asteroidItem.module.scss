@@ -17,6 +17,11 @@
     font-weight: 700;
     line-height: 24px;
     text-decoration-line: underline;
+    color: #fff;
+    transition: color 300ms ease-in-out;
+  }
+  &_name:hover {
+    color: #f86600;
   }
   &_mini {
     transform: scale(0.7);

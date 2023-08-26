@@ -1,5 +1,6 @@
 .asteroid_info {
   margin: 0 auto;
+  max-width: 364px;
   button {
     display: block;
     margin: 0 auto;
@@ -25,6 +26,9 @@
       }
     }
   }
+}
+.button {
+  text-decoration: none;
 }
 .asteroid_distance {
   display: flex;

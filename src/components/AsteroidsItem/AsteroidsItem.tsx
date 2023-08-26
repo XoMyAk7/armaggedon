@@ -1,5 +1,6 @@
 import { FC, useMemo, useState } from "react";
 import styles from "./asteroidItem.module.scss";
+import { Link } from "react-router-dom";
 import { IAsteroid } from "../../types/asteroids.types";
 import { getDay } from "../../functions/date";
 import { getName } from "../../functions/getName";
@@ -20,7 +21,7 @@ interface IAsteroidsItem {
 
 const AsteroidsItem: FC<IAsteroidsItem> = ({ asteroid, isBasket }) => {
   const { asteroids, isSend } = useBacket();
-  const { setBasket, setIsInfo, setIdAsteroidInfo } = useActions();
+  const { setBasket, setIdAsteroidInfo } = useActions();
   const { inKm } = useDistance();
   const [inBasket, setInBasket] = useState(false);
   const asteroidDiameter = useMemo(() => asteroid.estimated_diameter, []);
@@ -36,7 +37,7 @@ const AsteroidsItem: FC<IAsteroidsItem> = ({ asteroid, isBasket }) => {
   const isKm = useMemo(() => diameterIsKm(asteroidDiameter), []);
   const diameter = useMemo(
     () =>
-    diameterIsKm(asteroidDiameter)
+      diameterIsKm(asteroidDiameter)
         ? getDiameter(asteroidDiameter.kilometers)
         : getDiameter(asteroidDiameter.meters),
     []
@@ -77,15 +78,15 @@ const AsteroidsItem: FC<IAsteroidsItem> = ({ asteroid, isBasket }) => {
           }
         />
         <div className={styles.asteroid_descr}>
-          <span
+          <Link
             className={styles.asteroid_name}
             onClick={() => {
-              setIsInfo(true);
               setIdAsteroidInfo(asteroid.id);
             }}
+            to={"/" + asteroid.id}
           >
             {getName(asteroid.name)}
-          </span>
+          </Link>
           <span className={styles.asteroid_diameter}>
             Ø {diameter} {isKm ? " км" : " м"}{" "}
           </span>

@@ -1,4 +1,5 @@
 import { FC, useEffect, useState, useMemo, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import { useAsteroidInfo } from "../../hooks/useAsteroidInfo";
 import styles from "./asteroidInfo.module.scss";
 import { useActions } from "../../hooks/useActions";
@@ -10,14 +11,15 @@ import { useDistance } from "../../hooks/useDistance";
 import { endingCountLunar } from "../../functions/endingCountLunar";
 import { diameterIsKm } from "../../functions/diameterIsKm";
 import { getDiameter } from "../../functions/getDiameter";
-import AsteroidInfoOneDate from "./AsteroidInfoOneDate";
+import AsteroidInfoOneDate from "../AsteroidInfoOneDate.tsx/AsteroidInfoOneDate";
 import AsteroidDistance from "../AsteroidDistance/AsteroidDistance";
 
 const AsteroidInfo: FC = () => {
+  const navigate = useNavigate();
   const { id } = useAsteroidInfo();
   const [loading, setLoading] = useState(true);
   const { inKm } = useDistance();
-  const { setIsInfo, setIdAsteroidInfo } = useActions();
+  const { setIdAsteroidInfo } = useActions();
   const [asteroidInfo, setAsteroidInfo] = useState<IAsteroidInfo>(
     {} as IAsteroidInfo
   );
@@ -61,8 +63,8 @@ const AsteroidInfo: FC = () => {
       <div>
         <button
           onClick={() => {
-            setIsInfo(false);
             setIdAsteroidInfo("");
+            navigate("/");
           }}
           className={styles.button}
         >

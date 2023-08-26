@@ -5,12 +5,14 @@
 }
 
 .title {
+  text-decoration: none;
   color: #f86600;
   font-family: Passion One;
   font-size: 32px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+  cursor: url("../../assets/mouse.svg"), pointer;
 }
 
 .descr {

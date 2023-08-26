@@ -3,7 +3,7 @@ import { formatNumber } from "../../functions/formatNumber";
 import { endingCountLunar } from "../../functions/endingCountLunar";
 import { useDistance } from "../../hooks/useDistance";
 import { getDay } from "../../functions/date";
-import styles from "./asteroidInfo.module.scss"
+import styles from "../AsteroidInfo/asteroidInfo.module.scss"
 
 interface IAsteroidOneDate {
   asteroid: {

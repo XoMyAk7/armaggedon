@@ -1,0 +1,9 @@
+.earth_img {
+  position: fixed;
+  transform: translate(0px, 15vh);
+  transition: all 800ms ease 0s;
+}
+
+.earth_up {
+  transform: translate(0px, 10vh);
+}
