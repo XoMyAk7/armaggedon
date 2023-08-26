@@ -8,6 +8,10 @@ import { getDay, getToDay } from "../../functions/date";
 import { formatNumber } from "../../functions/formatNumber";
 import { useDistance } from "../../hooks/useDistance";
 import { endingCountLunar } from "../../functions/endingCountLunar";
+import { diameterIsKm } from "../../functions/diameterIsKm";
+import { getDiameter } from "../../functions/getDiameter";
+import AsteroidInfoOneDate from "./AsteroidInfoOneDate";
+import AsteroidDistance from "../AsteroidDistance/AsteroidDistance";
 
 const AsteroidInfo: FC = () => {
   const { id } = useAsteroidInfo();
@@ -22,7 +26,7 @@ const AsteroidInfo: FC = () => {
       "https://api.nasa.gov/neo/rest/v1/neo/" +
       id +
       "?api_key=hI9X0pnC7yklZdwpRSE7P6zV10zyJsTbIE6WscTl",
-    []
+    [id]
   );
 
   useEffect(() => {
@@ -30,8 +34,7 @@ const AsteroidInfo: FC = () => {
       .then(res => res.json())
       .then(data => setAsteroidInfo(data))
       .finally(() => setLoading(false));
-  }, [id]);
-  console.log(asteroidInfo);
+  }, [urlAsteroid]);
 
   const getIndexNear = useMemo(() => {
     if (!loading) {
@@ -55,40 +58,93 @@ const AsteroidInfo: FC = () => {
     ""
   ) : (
     <div className={styles.asteroid_info}>
-      <button
-        onClick={() => {
-          setIsInfo(false);
-          setIdAsteroidInfo("");
-        }}
-      >
-        Вернуться к списку
-      </button>
       <div>
-        <h2>{getName(asteroidInfo.name)}</h2>
-        <div>
-          <p>Ближайшее сближение {formatDay()}</p>
-          <p>
-            Расстояние{" "}
-            {inKm
-              ? formatNumber(
-                  asteroidInfo.close_approach_data[getIndexNear].miss_distance
-                    .kilometers
-                ) + " км"
-              : formatNumber(
-                  asteroidInfo.close_approach_data[getIndexNear].miss_distance
-                    .lunar
-                ) +
-                " " +
-                endingCountLunar(
-                  Math.round(
-                    Number(
+        <button
+          onClick={() => {
+            setIsInfo(false);
+            setIdAsteroidInfo("");
+          }}
+          className={styles.button}
+        >
+          Вернуться к списку
+        </button>
+        <div className={styles.asteroid_distance}>
+          <pre>Расстояние </pre>
+          <AsteroidDistance />
+        </div>
+        <div className={styles.info}>
+          <h2 className={styles.name}>Астероид {getName(asteroidInfo.name)}</h2>
+          <ul>
+            <li>
+              <span>Ближайшее сближение</span>
+              <div>{formatDay()}</div>
+            </li>
+            <li>
+              <span>Расстояние</span>{" "}
+              <div>
+                {inKm
+                  ? formatNumber(
+                      asteroidInfo.close_approach_data[getIndexNear]
+                        .miss_distance.kilometers
+                    ) + " км"
+                  : formatNumber(
                       asteroidInfo.close_approach_data[getIndexNear]
                         .miss_distance.lunar
-                    )
-                  )
-                )}
-          </p>
+                    ) +
+                    " " +
+                    endingCountLunar(
+                      Math.round(
+                        Number(
+                          asteroidInfo.close_approach_data[getIndexNear]
+                            .miss_distance.lunar
+                        )
+                      )
+                    )}
+              </div>
+            </li>
+            <li>
+              <span>Диаметр</span>
+              <div>
+                {diameterIsKm(asteroidInfo.estimated_diameter)
+                  ? getDiameter(asteroidInfo.estimated_diameter.kilometers) +
+                    " км"
+                  : getDiameter(asteroidInfo.estimated_diameter.meters) + " м"}
+              </div>
+            </li>
+            <li>
+              <span>Скорость</span>
+              <div>
+                {formatNumber(
+                  asteroidInfo.close_approach_data[getIndexNear]
+                    .relative_velocity.kilometers_per_hour
+                ) + " км/ч"}
+              </div>
+            </li>
+            <li>
+              <span>Орбита</span>
+              <div>
+                {asteroidInfo.close_approach_data[getIndexNear].orbiting_body}
+              </div>
+            </li>
+            <li>
+              <span>Опасность</span>
+              <div>
+                {asteroidInfo.is_potentially_hazardous_asteroid
+                  ? "Опасен"
+                  : "Не опасен"}
+              </div>
+            </li>
+          </ul>
         </div>
+        <h2>Список всех сближений:</h2>
+        <ul>
+          {asteroidInfo.close_approach_data.map(asteroid => (
+            <AsteroidInfoOneDate
+              asteroid={asteroid}
+              key={asteroid.close_approach_date}
+            />
+          ))}
+        </ul>
       </div>
     </div>
   );

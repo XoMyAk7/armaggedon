@@ -6,6 +6,7 @@ import { getToDay, getNextDay } from "../../functions/date";
 import { useDistance } from "../../hooks/useDistance";
 import { useActions } from "../../hooks/useActions";
 import React from "react";
+import AsteroidDistance from "../AsteroidDistance/AsteroidDistance";
 
 const AsteroidsList: FC = () => {
   const {inKm} = useDistance()
@@ -60,21 +61,7 @@ const AsteroidsList: FC = () => {
     <div className={styles.list}>
       <div className={styles.header}>
         <h2>Ближайшие подлёты астероидов</h2>
-        <div className={styles.distance}>
-          <span
-            className={inKm ? styles.active : styles.not_active}
-            onClick={() => setDistance(true)}
-          >
-            в километрах
-          </span>
-          <pre> | </pre>
-          <span
-            className={!inKm ? styles.active : styles.not_active}
-            onClick={() => setDistance(false)}
-          >
-            в лунных орбитах
-          </span>
-        </div>
+        <AsteroidDistance />
       </div>
       <Asteroids />
     </div>

@@ -1,3 +1,44 @@
 .asteroid_info {
   margin: 0 auto;
+  button {
+    display: block;
+    margin: 0 auto;
+    padding: 7px 10px;
+    font-size: 18px;
+  }
+  h2 {
+    text-align: center;
+  }
+  ul {
+    .info_one_date {
+      margin-top: 30px;
+    }
+    li {
+      font-size: 700;
+      font-size: 19px;
+      margin-top: 6px;
+      display: flex;
+      justify-content: space-between;
+      span {
+        color: lightgray;
+        margin-right: 10px;
+      }
+    }
+  }
+}
+.asteroid_distance {
+  display: flex;
+  margin-top: 10px;
+  font-weight: 700;
+}
+.info {
+  margin: 15px 0;
+  background-color: rgb(35, 37, 38);
+  padding: 14px 20px;
+  border-radius: 20px;
+}
+.name {
+  text-align: center;
+  font-weight: 700;
+  font-size: 28px;
 }

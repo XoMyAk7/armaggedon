@@ -7,17 +7,17 @@
   background: #232526;
   line-height: 24px;
   font-style: normal;
-  transform: translate(0px, 0px);
+  transform: translate(0px, 10px);
   transition: all 800ms ease 0s;
   z-index: 1;
 
   &_up {
-    transform: translate(0px, -3vh);
+    transform: translate(0px, -30px);
   }
 
   .header {
     display: flex;
-    min-width: 274px;
+    min-width: 310px;
     justify-content: space-between;
     margin-bottom: 11px;
     z-index: 1;
@@ -136,7 +136,7 @@
   width: 20px;
   height: 20px;
   float: right;
-  bottom: 10.5vh;
+  bottom: 83px;
   cursor: url("./assets/mouse.svg"), pointer;
   transition: all 500ms ease-in-out;
   transform: translate(0px, 0px);
@@ -155,5 +155,5 @@
   transform: scale(0.8);
 }
 .icon_bs_trash_danger {
-  bottom: 13.5vh;
+  bottom: 105px;
 }

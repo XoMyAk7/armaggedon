@@ -1,0 +1,16 @@
+.distance {
+  display: flex;
+  span {
+    font-size: 16px;
+    font-style: normal;
+  }
+  
+}
+.active {
+  font-weight: 700;
+}
+.not_active {
+  font-weight: 400;
+  text-decoration: underline;
+  cursor: url("../../assets/mouse.svg"), pointer;
+}

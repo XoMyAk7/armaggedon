@@ -10,6 +10,8 @@ import { formatNumber } from "../../functions/formatNumber";
 import { useBacket } from "../../hooks/useBasket";
 import { useDistance } from "../../hooks/useDistance";
 import { endingCountLunar } from "../../functions/endingCountLunar";
+import { diameterIsKm } from "../../functions/diameterIsKm";
+import { getDiameter } from "../../functions/getDiameter";
 
 interface IAsteroidsItem {
   asteroid: IAsteroid;
@@ -31,26 +33,12 @@ const AsteroidsItem: FC<IAsteroidsItem> = ({ asteroid, isBasket }) => {
     () => formatNumber(asteroid.close_approach_data[0].miss_distance.lunar),
     []
   );
-  const isKm = useMemo(
-    () =>
-      asteroidDiameter.kilometers.estimated_diameter_max +
-        asteroidDiameter.kilometers.estimated_diameter_min / 2 >=
-      1,
-    []
-  );
+  const isKm = useMemo(() => diameterIsKm(asteroidDiameter), []);
   const diameter = useMemo(
     () =>
-      isKm
-        ? Math.round(
-            (asteroidDiameter.kilometers.estimated_diameter_max +
-              asteroidDiameter.kilometers.estimated_diameter_min) /
-              2
-          )
-        : Math.round(
-            (asteroidDiameter.meters.estimated_diameter_max +
-              asteroidDiameter.meters.estimated_diameter_min) /
-              2
-          ),
+    diameterIsKm(asteroidDiameter)
+        ? getDiameter(asteroidDiameter.kilometers)
+        : getDiameter(asteroidDiameter.meters),
     []
   );
 
