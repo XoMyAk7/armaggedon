@@ -35,13 +35,7 @@ const AsteroidsItem: FC<IAsteroidsItem> = ({ asteroid, isBasket }) => {
     []
   );
   const isKm = useMemo(() => diameterIsKm(asteroidDiameter), []);
-  const diameter = useMemo(
-    () =>
-      diameterIsKm(asteroidDiameter)
-        ? getDiameter(asteroidDiameter.kilometers)
-        : getDiameter(asteroidDiameter.meters),
-    []
-  );
+  const diameter = useMemo(() => getDiameter(asteroidDiameter), []);
 
   useMemo(() => {
     const index = asteroids.findIndex(a => a.id === asteroid.id);
@@ -54,7 +48,7 @@ const AsteroidsItem: FC<IAsteroidsItem> = ({ asteroid, isBasket }) => {
 
   return (
     <div className={styles.asteroid}>
-      <h3 className={styles.data}>
+      <h3 className={styles.date}>
         {getDay(asteroid.close_approach_data[0].close_approach_date)}
       </h3>
       <div className={styles.asteroid_info}>

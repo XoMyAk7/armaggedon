@@ -1,11 +1,14 @@
 import { FC, useEffect } from "react";
 import Header from "../components/Header/Header";
-import Basket from "../components/Basket/Basket";
-import Main from "../components/Main/Main";
 import { useActions } from "../hooks/useActions";
+import AsteroidsList from "../components/AsteroidsList/AsteroidsList";
+import { useSize } from "../hooks/useSize";
+import BasketDesktop from "../components/Basket/BasketDesktop/BasketDesktop";
+import BasketMobile from "../components/Basket/BasketMobile/BasketMobile";
 
 const Home: FC = () => {
   const { setSize } = useActions();
+  const {isDesktop} = useSize()
 
   const handleSubscribe = () => {
     setSize(window.innerWidth);
@@ -25,8 +28,8 @@ const Home: FC = () => {
   return (
     <>
       <Header />
-      <Basket />
-      <Main />
+      {isDesktop ? <BasketDesktop /> : <BasketMobile />}
+      <AsteroidsList />
     </>
   );
 };

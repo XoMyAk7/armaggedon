@@ -1,4 +1,4 @@
-.data {
+.date {
   font-size: 24px;
   font-style: normal;
   font-weight: 700;
@@ -82,4 +82,58 @@
 }
 .inBasket {
   color: #f5ded9;
+}
+
+@media (max-width: 993px) {
+  .date {
+    font-size: 22px;
+  }
+  .asteroid {
+    &_name {
+      font-size: 15px;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .date {
+    font-size: 26px;
+  }
+  .asteroid {
+    &_name {
+      font-size: 17px;
+    }
+    &_diameter {
+      font-size: 14px;
+    }
+    .distance {
+      font-size: 17px;
+    }
+  }
+  .danger {
+    pre {
+      font-size: 16px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .date {
+    font-size: 22px;
+  }
+  .asteroid {
+    &_name {
+      font-size: 16px;
+    }
+    &_diameter {
+      font-size: 14px;
+    }
+    &_mini {
+      width: 15%;
+      height: 15%;
+    }
+    .distance {
+      font-size: 15px;
+    }
+  }
 }

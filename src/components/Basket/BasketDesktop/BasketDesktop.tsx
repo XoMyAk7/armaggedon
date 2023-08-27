@@ -1,13 +1,13 @@
 import { FC, useState, useEffect } from "react";
-import styles from "./basket.module.scss";
-import { useBacket } from "../../hooks/useBasket";
-import AsteroidsItem from "../AsteroidsItem/AsteroidsItem";
+import styles from "./basketDesktop.module.scss";
+import { useBacket } from "../../../hooks/useBasket";
+import AsteroidsItem from "../../AsteroidsItem/AsteroidsItem";
 import { BsTrash } from "react-icons/bs";
 import { IconContext } from "react-icons";
-import { useActions } from "../../hooks/useActions";
-import { endingCountAsteroids } from "../../functions/endingCountAsteroids";
+import { useActions } from "../../../hooks/useActions";
+import { endingCountAsteroids } from "../../../functions/endingCountAsteroids";
 
-const Basket: FC = () => {
+const BasketDesktop: FC = () => {
   const { count, asteroids, isSend } = useBacket();
   const { setBasket, resetBasket, setIsSend } = useActions();
   const [e, setE] = useState(0);
@@ -43,7 +43,7 @@ const Basket: FC = () => {
         ) : (
           <button
             className={count > 0 ? "" : styles.button_zero}
-            onClick={() => setIsSend()}
+            onClick={() => count > 0 ? setIsSend() : ""}
           >
             Отправить
           </button>
@@ -82,4 +82,4 @@ const Basket: FC = () => {
   );
 };
 
-export default Basket;
+export default BasketDesktop;

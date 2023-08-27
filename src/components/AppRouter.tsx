@@ -7,9 +7,11 @@ import {
   RouterProvider,
   Outlet,
 } from "react-router-dom";
-import { routes } from "../routes";
+import { routes, routesMobileSend } from "../routes";
+import { useSize } from "../hooks/useSize";
 
 const AppRouter: FC = () => {
+  const { isDesktop } = useSize();
   const Layout = () => (
     <>
       <Earth />
@@ -22,8 +24,17 @@ const AppRouter: FC = () => {
       <>
         <Route element={<Layout />} errorElement={<h1>Ошибка!</h1>}>
           {routes.map(route => (
-            <Route path={route.path} element={route.element} />
+            <Route key={route.path} path={route.path} element={route.element} />
           ))}
+          {isDesktop
+            ? ""
+            : routesMobileSend.map(route => (
+              <Route
+                key={route.path}
+                path={route.path}
+                element={route.element}
+              />
+            ))}
         </Route>
       </>
     )

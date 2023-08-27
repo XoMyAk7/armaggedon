@@ -1,6 +1,7 @@
 .asteroid_info {
   margin: 0 auto;
   max-width: 364px;
+  position: relative;
   button {
     display: block;
     margin: 0 auto;
@@ -9,6 +10,18 @@
   }
   h2 {
     text-align: center;
+  }
+  .info {
+    margin: 15px 0;
+    background-color: rgb(35, 37, 38);
+    padding: 14px 20px;
+    border-radius: 20px;
+  }
+  .name {
+    text-align: center;
+    font-weight: 700;
+    font-size: 28px;
+    margin-bottom: 13px;
   }
   ul {
     .info_one_date {
@@ -35,14 +48,84 @@
   margin-top: 10px;
   font-weight: 700;
 }
-.info {
-  margin: 15px 0;
-  background-color: rgb(35, 37, 38);
-  padding: 14px 20px;
-  border-radius: 20px;
+
+@media (max-width: 1200px) {
+  .asteroid_info {
+    margin: 0px;
+    left: 24vw;
+  }
 }
-.name {
-  text-align: center;
-  font-weight: 700;
-  font-size: 28px;
+@media (max-width: 993px) {
+  .asteroid_info {
+    left: 16vw;
+    max-width: 270px;
+    .name {
+      font-size: 24px;
+    }
+    ul {
+      li {
+        font-size: 16px;
+        span {
+          max-width: 35%;
+          margin-right: 0;
+        }
+        div {
+          font-size: 15px;
+        }
+      }
+    }
+  }
+  .asteroid_distance {
+    display: block;
+    pre {
+      text-align: center;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .asteroid_info {
+    left: 25vw;
+    max-width: 300px;
+    .name {
+      font-size: 22px;
+    }
+    ul {
+      li {
+        font-size: 17px;
+        span {
+          max-width: 40%;
+        }
+        div {
+          font-size: 17px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .asteroid_info {
+    max-width: 270px;
+    left: 15vw;
+    .name {
+      font-size: 20px;
+    }
+    ul {
+      li {
+        font-size: 16px;
+        span {
+          max-width: 35%;
+        }
+        div {
+          font-size: 15px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 330px) {
+  .asteroid_info {
+    left: 10vw;}
 }

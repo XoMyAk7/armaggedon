@@ -1,0 +1,33 @@
+.basket_mobile {
+  position: fixed;
+  display: flex;
+  justify-content: space-between;
+  bottom: 0px;
+  width: 100%;
+  padding: 16px;
+  background: #232526;
+  z-index: 2;
+  .button_zero {
+    pointer-events: none;
+    background-color: #73370c;
+    color: gray;
+  }
+  button {
+    height: 44px;
+    border-radius: 40px;
+    padding: 8px 16px;
+    transition: all 300ms ease-in-out;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 24px;
+    float: right;
+  }
+  button:hover {
+    background-color: #b44e05;
+  }
+  button:active {
+    background-color: #913f04;
+    transition: background-color 50ms ease-in-out;
+  }
+}

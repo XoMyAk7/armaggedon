@@ -1,0 +1,33 @@
+.send_asteroids {
+  max-width: 270px;
+  margin: 0 auto;
+  button {
+    display: block;
+    margin: 35px auto 0 auto;
+    height: 44px;
+    border-radius: 40px;
+    padding: 8px 16px;
+    transition: all 300ms ease-in-out;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 24px;
+  }
+  button:hover {
+    background-color: #b44e05;
+  }
+}
+.send {
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 36px;
+  display: block;
+  text-align: center;
+}
+.asteroids {
+  z-index: 3;
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: 400px;
+}

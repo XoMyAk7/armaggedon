@@ -7,7 +7,7 @@ export interface sizeState {
 
 const initialState: sizeState = {
   width: window.innerWidth,
-  isDesktop: window.innerWidth > 991 ? true : false,
+  isDesktop: window.innerWidth > 768 ? true : false,
 };
 
 const sizeSlice = createSlice({

@@ -16,14 +16,15 @@
   }
 
   .header {
-    display: flex;
-    min-width: 310px;
-    justify-content: space-between;
+    width: 300px;
+    min-height: 44px;
+    float: right;
     margin-bottom: 11px;
     z-index: 1;
     user-select: auto;
 
     .title {
+      position: absolute;
       display: inline-block;
       transition: all 400ms ease-in-out;
       transform: translate(0px, 0px);
@@ -66,8 +67,8 @@
     color: gray;
   }
   .button_new_order {
-      transform: translate(-25%, 0px);
-    }
+    transform: translate(-25%, 0);
+  }
 
   button {
     z-index: 1;
@@ -79,6 +80,7 @@
     font-style: normal;
     font-weight: 700;
     line-height: 24px;
+    float: right;
   }
   button:hover {
     background-color: #b44e05;
@@ -156,4 +158,32 @@
 }
 .icon_bs_trash_danger {
   bottom: 105px;
+}
+
+@media (max-width: 1200px) {
+  .basket {
+    left: 65%;
+    max-height: 70vh;
+    .header {
+      width: 280px;
+    }
+    .button_new_order {
+      transform: translate(-18%, 0);
+    }
+    &_up {
+      transform: translate(0px, -2vh);
+    }
+    .asteroids {
+      max-height: 49vh;
+    }
+  }
+}
+
+@media (max-width: 993px) {
+  .basket {
+    left: 58%;
+    .header {
+      width: 275px;
+    }
+  }
 }

@@ -3,14 +3,10 @@ import styles from "./asteroidsList.module.scss";
 import AsteroidsItem from "../AsteroidsItem/AsteroidsItem";
 import { IAsteroid } from "../../types/asteroids.types";
 import { getToDay, getNextDay } from "../../functions/date";
-import { useDistance } from "../../hooks/useDistance";
-import { useActions } from "../../hooks/useActions";
 import React from "react";
 import AsteroidDistance from "../AsteroidDistance/AsteroidDistance";
 
 const AsteroidsList: FC = () => {
-  const {inKm} = useDistance()
-  const {setDistance} = useActions()
   const [day, setDay] = useState(getToDay());
   const [asteroids, setAsteroids] = useState<IAsteroid[]>([]);
   const [fetching, setFetching] = useState(true);
@@ -58,13 +54,13 @@ const AsteroidsList: FC = () => {
   })
 
   return (
-    <div className={styles.list}>
+    <main className={styles.list}>
       <div className={styles.header}>
         <h2>Ближайшие подлёты астероидов</h2>
         <AsteroidDistance />
       </div>
       <Asteroids />
-    </div>
+    </main>
   );
 };
 

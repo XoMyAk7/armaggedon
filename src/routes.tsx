@@ -1,5 +1,6 @@
 import Asteroid from "./Pages/Asteroid";
 import Home from "./Pages/Home";
+import Send from "./Pages/Send";
 
 type RouteType = {
   path: string;
@@ -14,5 +15,12 @@ export const routes: RouteType[] = [
   {
     path: "/:id",
     element: <Asteroid />,
+  },
+];
+
+export const routesMobileSend: RouteType[] = [
+  {
+    path: "/m.send",
+    element: <Send />,
   },
 ];

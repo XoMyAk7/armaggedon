@@ -1,7 +1,10 @@
 .list {
+  position: relative;
+  margin-top: 15px;
   margin: 0 auto;
+  z-index: 1;
   margin-bottom: 24px;
-  width: 402px;
+  max-width: 400px;
 }
 
 .header {
@@ -14,3 +17,27 @@
   }
 }
 
+@media (max-width: 993px) {
+  .list {
+    margin: 0;
+    left: 16vw;
+  }
+  .header {
+    h2 {
+      font-size: 24px;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .list {
+    left: 30vw;
+    max-width: 270px;
+  }
+}
+@media (max-width: 480px) {
+  .list {
+    max-width: 260px;
+    left: 15vw;
+  }
+}

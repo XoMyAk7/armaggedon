@@ -1,9 +1,44 @@
 .earth_img {
   position: fixed;
-  transform: translate(0px, 15vh);
+  top: 15vh;
   transition: all 800ms ease 0s;
 }
 
 .earth_up {
-  transform: translate(0px, 10vh);
+  transform: translateY(-3vh);
+}
+
+@media (max-width: 1200px) {
+  .earth_img {
+    top: 16vh;
+    left: -14vw;
+    width: 33%;
+  }
+}
+
+@media (max-width: 992px) {
+  .earth_img {
+    top: 11vh;
+    left: -37vw;
+    width: 50%;
+  }
+}
+
+@media (max-width: 768px) {
+  .earth_img {
+    top: 10vh;
+    left: -34vw;
+    width: 50%;
+  }
+  .earth_up {
+    transform: translate(0, -2vh);
+  }
+}
+
+@media (max-width: 480px) {
+  .earth_img {
+    top: 20vh;
+    left: -63vw;
+    width: 70%;
+  }
 }
