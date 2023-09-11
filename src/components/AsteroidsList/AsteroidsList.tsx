@@ -10,6 +10,7 @@ const AsteroidsList: FC = () => {
   const [day, setDay] = useState(getToDay());
   const [asteroids, setAsteroids] = useState<IAsteroid[]>([]);
   const [fetching, setFetching] = useState(true);
+  const [loading, setLoading] = useState(true);
   const [getAsteroids, setGetAsteroids] = useState(
     "https://api.nasa.gov/neo/rest/v1/feed?start_date=" +
       day +
@@ -26,7 +27,10 @@ const AsteroidsList: FC = () => {
           setDay(getNextDay(day));
           setGetAsteroids(res.links.next);
         })
-        .finally(() => setFetching(false));
+        .finally(() => {
+          setFetching(false);
+          setLoading(false);
+        });
     }
   }, [fetching]);
 
@@ -44,14 +48,15 @@ const AsteroidsList: FC = () => {
       400
     ) {
       setFetching(true);
+      setLoading(true);
     }
   };
 
   const Asteroids = React.memo(() => {
-    return (asteroids.map(asteroid => (
+    return asteroids.map(asteroid => (
       <AsteroidsItem key={asteroid.id} asteroid={asteroid} isBasket={false} />
-    )))
-  })
+    ));
+  });
 
   return (
     <main className={styles.list}>
@@ -60,6 +65,7 @@ const AsteroidsList: FC = () => {
         <AsteroidDistance />
       </div>
       <Asteroids />
+      {loading && <div className={styles.loading}>Загрузка...</div>}
     </main>
   );
 };
